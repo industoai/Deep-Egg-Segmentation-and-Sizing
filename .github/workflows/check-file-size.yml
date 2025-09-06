@@ -1,0 +1,40 @@
+name: Check File Size
+
+on:
+  pull_request:
+    branches: [master]  # Runs on PRs to the master branch
+  workflow_dispatch:  # Allows manual triggering from the Actions tab
+
+jobs:
+  check-file-size:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get list of changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v39
+
+      - name: Check file sizes
+        run: |
+          MAX_SIZE=10485760  # 10MB in bytes
+          ERROR=0
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [ -f "$file" ]; then
+              FILE_SIZE=$(stat -c%s "$file")
+              if [ $FILE_SIZE -gt $MAX_SIZE ]; then
+                echo "❌ File $file exceeds the 10MB limit (Size: $FILE_SIZE bytes)"
+                ERROR=1
+              fi
+            fi
+          done
+
+          if [ $ERROR -eq 1 ]; then
+            echo "❌ Some files are too large! Please use Git LFS for large files."
+            exit 1  # Blocks the PR
+          fi
+
+      - name: Success Message
+        if: success()
+        run: echo "✅ All files are within the size limit."

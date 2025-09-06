@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "egg_segmentation_size"
+version = "0.2.0"
+description = "This repo segments the eggs in images and gives an estimation for their sizes"
+authors = ["Afshin Dini <Afshin Dini>"]
+readme = "README.md"
+packages = [{include = "egg_segmentation_size", from = "src"}]
+
+[tool.poetry.scripts]
+egg_segmentation_size = "egg_segmentation_size.main:egg_segmentation_size_cli"
+
+[tool.pylint.format]
+max-line-length=150     # This defines the maximum number of characters on a single line in pylint
+
+[tool.pylint.design]
+max-attributes=10
+max-positional-arguments=6
+max-args=6
+
+[tool.pylint.messages_control]
+disable=["fixme"]
+
+[tool.pylint.similarities]
+min-similarity-lines = 8    # Minimum lines number of a similarity.
+ignore-imports = true       # Ignore imports when computing similarities.
+
+[tool.pytest.ini_options]
+junit_family="xunit2"
+addopts="--cov=egg_segmentation_size --cov-fail-under=65 --cov-branch"
+asyncio_mode="strict"
+
+
+[tool.coverage.run]
+omit = ["tests/*"]
+branch = true
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click = "^8.1.7"
+ultralytics = "^8.3.94"
+streamlit = "^1.43.2"
+opencv-python = "^4.11.0.86"
+pandas = "^2.2.3"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+coverage = "^7.6"
+pytest-cov = "^6.0"
+pylint = "^3.3.1"
+black = "^24.10.0"
+mypy = "^1.13.0"
+bump2version = "^1.0.1"
+bandit = "^1.7.10"
+pre-commit = "^4.0.1"
+detect-secrets = "^1.5"
+
+[build-system]
+requires = ["poetry-core>=1.5.0"]
+build-backend = "poetry.core.masonry.api"

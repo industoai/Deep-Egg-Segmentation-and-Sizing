@@ -1,0 +1,5 @@
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+results/sample1.jpg filter=lfs diff=lfs merge=lfs -text
+tests/test_data/sample1.jpg filter=lfs diff=lfs merge=lfs -text
+src/egg_segmentation_size/model/egg_segmentor.pt filter=lfs diff=lfs merge=lfs -text
