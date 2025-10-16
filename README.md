@@ -20,6 +20,7 @@ If the images are taken exactly from above the eggs, eggs would appear as circle
 which is `V = 4/3 * pi * r^3` where `r` is the radius. If the eggs appear as ellipsoids, the volume would be `V = 4/3 * pi * r1 * r2^2` where `r1` and `r2` are the major and minor radius of the ellipsoid.
 We can measure those radius by related opencv functions.
 
+
 **NOTE:** Since the radius measurements are in pixel, we should convert them to be used for volume estimation. To do so, we need a scale_factor which depends on the
 camera characteristics. This scale factor can be defined as `scale_factor = DPI / 2.54` where `DPI` is the dots per inch of the camera. For my camera it is `11.61`
 but one can find it easily for other cameras. The result for the test sample are based on my camera specifications.
